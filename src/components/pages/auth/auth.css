@@ -1,0 +1,229 @@
+/* Base Styles */
+.auth-container {
+  font-family: 'Nunito', sans-serif;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.auth-frame {
+  display: flex;
+  height: 624px;
+  width: 100%;
+  box-shadow: 0px 4px 50px rgba(18, 18, 18, 0.3);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* Onboarding Section */
+.auth-onboarding {
+  width: 50%;
+  position: relative;
+}
+
+.onboarding-background {
+  position: absolute;
+  inset: 0;
+  background: #4d007d;
+  border-radius: 20px 0 0 20px;
+}
+
+.onboarding-content {
+  position: relative;
+  padding: 76px 80px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  z-index: 1;
+}
+
+.onboarding-image {
+  border-radius: 20px;
+  width: 100%;
+  height: 284px;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.onboarding-text h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.onboarding-text p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.scroll-indicator {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.scroll-indicator span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.scroll-indicator span.active {
+  background: white;
+}
+
+/* Form Section */
+.auth-form-section {
+  width: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 0 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #121212;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: #121212;
+}
+
+.required {
+  color: #b70000;
+}
+
+.form-group input {
+  width: 300px;
+  padding: 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.form-group input::placeholder {
+  color: #a4a4a4;
+}
+
+.password-input {
+  position: relative;
+}
+
+.password-input input {
+  padding-right: 40px;
+}
+
+.toggle-password {
+  position: absolute;
+  /* right: 16px; */
+  left: 270px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #a4a4a4;
+}
+
+.forgot-password {
+  text-align: left;
+  margin: -8px 0 16px;
+}
+
+.forgot-password button {
+  background: none;
+  border: none;
+  color: #a4a4a4;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.auth-button {
+  width: 40%;
+  padding: 8px;
+  background: #4d007d;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  box-shadow: 0px 4px 20px rgba(18, 18, 18, 0.15);
+  transition: background 0.3s;
+}
+
+.auth-button:hover {
+  background: #3a005f;
+}
+
+.auth-switch {
+  text-align: left;
+  margin-top: 16px;
+  color: #a4a4a4;
+  font-size: 14px;
+}
+
+.auth-switch button {
+  background: none;
+  border: none;
+  color: #4d007d;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+}
+
+/* Logo */
+.auth-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logo-box {
+  width: 44px;
+  height: 44px;
+  border: 6px solid #4d007d;
+  border-radius: 4px;
+  background: white;
+}
+
+.auth-logo span {
+  color: #4d007d;
+  font-size: 32px;
+  font-weight: 800;
+}

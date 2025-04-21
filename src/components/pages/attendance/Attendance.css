@@ -1,0 +1,194 @@
+.employees-container {
+  width: 100%;
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.employees-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+  margin-top: 20px;
+}
+
+.employees-table thead {
+  background-color: #3f0071;
+  color: white;
+  text-align: left;
+}
+
+.employees-table th,
+.employees-table td {
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+.employees-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Status and Search Component Styles */
+.status-search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.attendance-status {
+  display: flex;
+  align-items: center;
+}
+
+.status-select {
+  padding: 8px 15px;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  background-color: white;
+  font-size: 14px;
+  appearance: none; /* Removes default browser styling */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 35px; /* Space for the icon */
+  cursor: pointer;
+}
+
+.status-dropdown::after {
+  content: '▼';
+  position: absolute;
+  right: 16px;
+  top: 10px;
+  font-size: 10px;
+  color: #a4a4a4;
+  pointer-events: none;
+}
+
+/* Fixed search box styles */
+.search-box {
+  position: relative;
+  width: 240px;
+  border-radius: 45px;
+  border: 1px solid #a4a4a4;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.search-input {
+  width: 100%;
+  height: 38px;
+  padding: 8px 16px 8px 40px;
+  border-radius: 45px;
+  border: none;
+  background-color: transparent;
+  font-family: "Nunito-Regular", sans-serif;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-box:focus-within {
+  border-color: #3f0071;
+  box-shadow: 0 0 0 2px rgba(63, 0, 113, 0.1);
+}
+
+/* Single search icon styling */
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a4a4a4;
+  pointer-events: none;
+  font-size: 14px;
+}
+
+/* Remove the ::before content that was creating a second icon */
+.search-icon::before {
+  content: none;
+}
+
+/* Position cell styles */
+.position-cell {
+  cursor: pointer;
+  position: relative;
+}
+
+.position-cell:hover {
+  text-decoration: underline;
+  color: #3f0071;
+}
+
+.position-cell:hover::after {
+  content: "Click to toggle attendance";
+  position: absolute;
+  background: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* Status cell styles */
+.status-cell {
+  font-weight: 600;
+}
+
+.status-cell.present {
+  color: #28a745;
+}
+
+.status-cell.absent {
+  color: #dc3545;
+}
+
+@media (max-width: 768px) {
+  .employees-table {
+    font-size: 12px;
+    min-width: unset;
+  }
+
+  .employees-table th,
+  .employees-table td {
+    padding: 10px;
+  }
+
+  .avatar {
+    width: 30px;
+    height: 30px;
+  }
+
+  .employees-container {
+    padding: 0.5rem;
+  }
+  
+  .status-search-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .search-box {
+    width: 100%;
+  }
+  
+  .attendance-status {
+    width: 100%;
+  }
+}

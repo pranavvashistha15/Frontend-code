@@ -1,0 +1,111 @@
+* {
+  box-sizing: border-box;
+}
+
+.logOutPopUp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.rectangle55 {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e5e5e5;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0px 4px 10px rgba(18, 18, 18, 0.5);
+  position: relative;
+}
+
+.rectangle56 {
+  background: #4d007d;
+  border-radius: 20px 20px 0 0;
+  height: 67px;
+  width: 100%;
+}
+
+.logOut {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: 'Nunito-SemiBold', sans-serif;
+}
+
+.confirmationText {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 16px;
+  font-family: 'Nunito-Regular', sans-serif;
+  color: #121212;
+  padding: 0 20px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 30px;
+  padding: 1rem;
+  flex-wrap: wrap;
+}
+
+.cancelButton,
+.logoutButton {
+  border-radius: 50px;
+  padding: 8px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  box-shadow: 0px 4px 20px rgba(18, 18, 18, 0.15);
+  cursor: pointer;
+  font-family: 'Nunito-SemiBold', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.cancelButton {
+  background: #4d007d;
+  color: white;
+}
+
+.cancelButton:hover {
+  background: #3a005f;
+}
+
+.logoutButton {
+  background: white;
+  color: #b70000;
+  border: 1px solid #b70000;
+}
+
+.logoutButton:hover {
+  background: #f8f8f8;
+}
+
+@media (max-width: 600px) {
+  .buttonContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .rectangle55 {
+    width: 100%;
+  }
+}
