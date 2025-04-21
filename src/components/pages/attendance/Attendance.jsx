@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./Employees.css";
+import "./Attendance.css";
 import { FiMoreVertical, FiChevronDown, FiSearch, FiCalendar, FiX } from "react-icons/fi";
 import CommonHeader from "../../common/CommonHeader";
 import axios from "axios";
