@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import  { useState, useRef, useEffect } from "react";
 import "./Attendance.css";
 import { FiMoreVertical, FiChevronDown, FiSearch, FiCalendar, FiX } from "react-icons/fi";
 import CommonHeader from "../../common/CommonHeader";
@@ -51,7 +51,7 @@ const Employees = () => {
     fetchEmployeeData();
   }, []);
   
-  // Close dropdown when clicking outside
+ 
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -138,10 +138,9 @@ const Employees = () => {
     const startDate = new Date(monthStart);
     const endDate = new Date(monthEnd);
     
-    // Adjust start date to begin from the first day of the week (Sunday)
     startDate.setDate(startDate.getDate() - startDate.getDay());
     
-    // Ensure we have a complete last week
+  
     endDate.setDate(endDate.getDate() + (6 - endDate.getDay()));
     
     const weeks = [];

@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './auth.css';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./auth.css";
 import onboardingImage from "../../../assets/image1.png";
+import { Eye, EyeOff } from "lucide-react";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   });
+  
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -22,25 +25,29 @@ const Login = () => {
 
     try {
       const response = await fetch(`${baseUrl}/auth/login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
-  
+
       if (!response.ok) {
-        throw new Error('Login failed');
+        throw new Error("Login failed");
       }
-  
+
       const data = await response.json();
-      console.log('Login successful:', data);
-      localStorage.setItem('token', data.accessToken);
-      navigate('/dashboard');
+      console.log("Login successful:", data);
+      localStorage.setItem("token", data.accessToken);
+      navigate("/dashboard");
     } catch (error) {
-      console.error('Error during login:', error);
-      alert('Login failed. Please check your credentials and try again.');
+      console.error("Error during login:", error);
+      alert("Login failed. Please check your credentials and try again.");
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -50,10 +57,17 @@ const Login = () => {
         <div className="auth-onboarding">
           <div className="onboarding-background"></div>
           <div className="onboarding-content">
-            <img src={onboardingImage} alt="Onboarding" className="onboarding-image" />
+            <img
+              src={onboardingImage}
+              alt="Onboarding"
+              className="onboarding-image"
+            />
             <div className="onboarding-text">
               <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h3>
-              <p>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+              <p>
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                minim veniam
+              </p>
             </div>
             <div className="scroll-indicator">
               <span className="active"></span>
@@ -67,10 +81,12 @@ const Login = () => {
         <div className="auth-form-section">
           <div className="form-container">
             <h2>Welcome to Dashboard</h2>
-            
+
             <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <label>Email Address <span className="required">*</span></label>
+                <label>
+                  Email Address <span className="required">*</span>
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -82,24 +98,33 @@ const Login = () => {
               </div>
 
               <div className="form-group">
-                <label>Password <span className="required">*</span></label>
+                <label>
+                  Password <span className="required">*</span>
+                </label>
                 <div className="password-input">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Password"
                     required
                   />
-                  <button type="button" className="toggle-password">
-                    👁️
+                  <button 
+                    type="button" 
+                    className="toggle-password"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
               </div>
 
               <div className="forgot-password">
-                <button type="button" onClick={() => navigate('/forgot-password')}>
+                <button
+                  type="button"
+                  onClick={() => navigate("/forgot-password")}
+                >
                   Forgot password?
                 </button>
               </div>
@@ -109,7 +134,10 @@ const Login = () => {
               </button>
 
               <p className="auth-switch">
-                Don't have an account? <button type="button" onClick={() => navigate('/register')}>Register</button>
+                Don't have an account?{" "}
+                <button type="button" onClick={() => navigate("/register")}>
+                  Register
+                </button>
               </p>
             </form>
           </div>

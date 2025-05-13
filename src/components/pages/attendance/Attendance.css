@@ -56,12 +56,12 @@
   border-radius: 999px;
   background-color: white;
   font-size: 14px;
-  appearance: none; /* Removes default browser styling */
+  appearance: none; 
   background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 16px;
-  padding-right: 35px; /* Space for the icon */
+  padding-right: 35px; 
   cursor: pointer;
 }
 
@@ -102,7 +102,7 @@
   box-shadow: 0 0 0 2px rgba(63, 0, 113, 0.1);
 }
 
-/* Single search icon styling */
+
 .search-icon {
   position: absolute;
   left: 16px;
@@ -113,12 +113,12 @@
   font-size: 14px;
 }
 
-/* Remove the ::before content that was creating a second icon */
+
 .search-icon::before {
   content: none;
 }
 
-/* Position cell styles */
+
 .position-cell {
   cursor: pointer;
   position: relative;

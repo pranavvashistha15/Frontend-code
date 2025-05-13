@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './leaves.css';
 
 const AddLeaveModal = ({ isOpen, onClose, onSave }) => {

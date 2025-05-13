@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import "./Candidates.css"; 
 import CommonHeader from "../../common/CommonHeader";
 import axios from "axios";
@@ -6,7 +6,17 @@ import { FiSearch } from "react-icons/fi";
 
 const Candidates = () => {
   const [candidates, setCandidates] = useState([]);
+  const [statusOpen, setStatusOpen] = useState(false);
+  const [positionOpen, setPositionOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState('All Status');
+  const [selectedPosition, setSelectedPosition] = useState('All Positions');
+  const [actionMenuOpen, setActionMenuOpen] = useState(null);
 
+  // Define status and position options
+  const statusOptions = ['All Status', 'New', 'Selected', 'Rejected'];
+  const positionOptions = ['All Positions', 'Designer', 'Developer', 'Human Resource'];
+  
   const fetchCandidateData = async () => {
     try {
       const baseUrl = import.meta.env.VITE_API_BASE_URL
@@ -25,11 +35,6 @@ const Candidates = () => {
   useEffect(() => {
     fetchCandidateData();
   }, []);
-
-  const [statusOpen, setStatusOpen] = useState(false);
-  const [positionOpen, setPositionOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
-  
   
   const [showModal, setShowModal] = useState(false);
   const [newCandidate, setNewCandidate] = useState({
@@ -50,6 +55,27 @@ const Candidates = () => {
   const togglePosition = () => {
     setPositionOpen(!positionOpen);
     if (statusOpen) setStatusOpen(false);
+  };
+
+  // Handle selection of status
+  const handleStatusSelect = (status) => {
+    setSelectedStatus(status);
+    setStatusOpen(false);
+  };
+
+  // Handle selection of position
+  const handlePositionSelect = (position) => {
+    setSelectedPosition(position);
+    setPositionOpen(false);
+  };
+
+  // Handle candidate status change
+  const handleStatusChange = (id, newStatus) => {
+    setCandidates(prevCandidates =>
+      prevCandidates.map(candidate => 
+        candidate.id === id ? { ...candidate, status: newStatus } : candidate
+      )
+    );
   };
 
   const handleInputChange = (e) => {
@@ -80,9 +106,7 @@ const Candidates = () => {
       experience: newCandidate.experience
     };
     
-
     setCandidates([...candidates, candidate]);
-
     
     setNewCandidate({
       fullName: '',
@@ -96,9 +120,6 @@ const Candidates = () => {
     setShowModal(false);
   };
 
-
-  const [actionMenuOpen, setActionMenuOpen] = useState(null);
-  
   const toggleActionMenu = (id) => {
     if (actionMenuOpen === id) {
       setActionMenuOpen(null);
@@ -107,6 +128,17 @@ const Candidates = () => {
     }
   };
 
+  // Filter candidates based on selected status and position
+  const filteredCandidates = candidates.filter(candidate => {
+    const matchesStatus = selectedStatus === 'All Status' || candidate.status === selectedStatus;
+    const matchesPosition = selectedPosition === 'All Positions' || candidate.position === selectedPosition;
+    const matchesSearch = !searchValue || 
+      candidate.name?.toLowerCase().includes(searchValue.toLowerCase()) ||
+      candidate.email?.toLowerCase().includes(searchValue.toLowerCase()) ||
+      candidate.phone?.toLowerCase().includes(searchValue.toLowerCase());
+    
+    return matchesStatus && matchesPosition && matchesSearch;
+  });
 
   const ChevronDown = () => (
     <svg 
@@ -124,7 +156,6 @@ const Candidates = () => {
     </svg>
   );
 
-
   const SearchIcon = () => (
     <svg 
       width="20" 
@@ -141,7 +172,6 @@ const Candidates = () => {
       <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
     </svg>
   );
-
 
   const UploadIcon = () => (
     <svg 
@@ -161,7 +191,6 @@ const Candidates = () => {
     </svg>
   );
 
-
   const CloseIcon = () => (
     <svg 
       width="20" 
@@ -178,7 +207,6 @@ const Candidates = () => {
       <line x1="6" y1="6" x2="18" y2="18"></line>
     </svg>
   );
-
 
   const MoreIcon = () => (
     <svg 
@@ -203,40 +231,47 @@ const Candidates = () => {
       <main className="main">
         <CommonHeader screenName={"Candidates"} />
         
-    
         <div className="candidate-filter">
-      
           <div className="elements_flex">
             <div className="filter-dropdown">
               <button onClick={toggleStatus} className="filter-button">
-                <span>Status</span>
+                <span>{selectedStatus}</span>
                 <ChevronDown />
               </button>
               {statusOpen && (
                 <div className="dropdown-menu">
                   <ul>
-                    <li>All Status</li>
-                    <li>New</li>
-                    <li>Selected</li>
-                    <li>Rejected</li>
+                    {statusOptions.map((status, index) => (
+                      <li 
+                        key={index} 
+                        onClick={() => handleStatusSelect(status)}
+                        className={selectedStatus === status ? 'selected' : ''}
+                      >
+                        {status}
+                      </li>
+                    ))}
                   </ul>
                 </div>
               )}
             </div>
-
           
             <div className="filter-dropdown">
               <button onClick={togglePosition} className="filter-button">
-                <span>Position</span>
+                <span>{selectedPosition}</span>
                 <ChevronDown />
               </button>
               {positionOpen && (
                 <div className="dropdown-menu">
                   <ul>
-                    <li>All Positions</li>
-                    <li>Designer</li>
-                    <li>Developer</li>
-                    <li>Human Resource</li>
+                    {positionOptions.map((position, index) => (
+                      <li 
+                        key={index} 
+                        onClick={() => handlePositionSelect(position)}
+                        className={selectedPosition === position ? 'selected' : ''}
+                      >
+                        {position}
+                      </li>
+                    ))}
                   </ul>
                 </div>
               )}
@@ -252,15 +287,12 @@ const Candidates = () => {
                 onChange={(e) => setSearchValue(e.target.value)}
               />
             </div>
-
             
             <button className="add-button" onClick={() => setShowModal(true)}>
               Add Candidate
             </button>
           </div>
         </div>
-
-
     
         <div className="table-container">
           <table>
@@ -277,7 +309,7 @@ const Candidates = () => {
               </tr>
             </thead>
             <tbody>
-              {candidates.map((c, i) => (
+              {filteredCandidates.map((c, i) => (
                 <tr key={c.id}>
                   <td>{String(i + 1).padStart(2, "0")}</td>
                   <td>{c.name}</td>
@@ -286,7 +318,10 @@ const Candidates = () => {
                   <td>{c.position}</td>
                   <td>
                     <div className={`status-pill ${c?.status?.toLowerCase()}`}>
-                      <select defaultValue={c.status}>
+                      <select 
+                        value={c.status || "New"} 
+                        onChange={(e) => handleStatusChange(c.id, e.target.value)}
+                      >
                         <option value="New">New</option>
                         <option value="Selected">Selected</option>
                         <option value="Rejected">Rejected</option>
@@ -305,8 +340,12 @@ const Candidates = () => {
                       {actionMenuOpen === c.id && (
                         <div className="action-menu">
                           <ul>
-                            <li><a href={c.resume} target="_blank" download={true}>Download Resume</a></li>
-                            <li>Delete Candidate</li>
+                            <li><a href={c.resume} target="_blank" rel="noopener noreferrer">Download Resume</a></li>
+                            <li onClick={() => {
+                              if(confirm('Are you sure you want to delete this candidate?')) {
+                                setCandidates(candidates.filter(cand => cand.id !== c.id));
+                              }
+                            }}>Delete Candidate</li>
                           </ul>
                         </div>
                       )}
@@ -318,7 +357,6 @@ const Candidates = () => {
           </table>
         </div>
 
-        
         {showModal && (
           <div className="modal-overlay">
             <div className="modal-content">
@@ -367,14 +405,18 @@ const Candidates = () => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="position">Position*</label>
-                    <input
-                      type="text"
+                    <select
                       id="position"
                       name="position"
                       value={newCandidate.position}
                       onChange={handleInputChange}
                       required
-                    />
+                    >
+                      <option value="" disabled>Select Position</option>
+                      <option value="Designer">Designer</option>
+                      <option value="Developer">Developer</option>
+                      <option value="Human Resource">Human Resource</option>
+                    </select>
                   </div>
                 </div>
                 <div className="form-row">
@@ -433,7 +475,6 @@ const Candidates = () => {
                 >
                   Save
                 </button>
-
                 </div>
               </form>
             </div>

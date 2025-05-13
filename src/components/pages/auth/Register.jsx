@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./auth.css";
 import onboardingImage from "../../../assets/image1.png";
+import { Eye, EyeOff } from "lucide-react";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,9 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+  
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -51,6 +55,14 @@ const Register = () => {
       console.error("Error during registration:", error);
       alert("Registration failed. Please try again.");
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   return (
@@ -120,15 +132,19 @@ const Register = () => {
                 </label>
                 <div className="password-input">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Password"
                     required
                   />
-                  <button type="button" className="toggle-password">
-                    👁️
+                  <button 
+                    type="button" 
+                    className="toggle-password"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
               </div>
@@ -139,15 +155,19 @@ const Register = () => {
                 </label>
                 <div className="password-input">
                   <input
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     placeholder="Confirm Password"
                     required
                   />
-                  <button type="button" className="toggle-password">
-                    👁️
+                  <button 
+                    type="button" 
+                    className="toggle-password"
+                    onClick={toggleConfirmPasswordVisibility}
+                  >
+                    {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
                 </div>
               </div>
